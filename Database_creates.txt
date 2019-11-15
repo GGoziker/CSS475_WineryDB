@@ -1,0 +1,25 @@
+Create table WINERY
+(
+Winery_ID int not null.
+Name varchar(50),
+Owner_Fname varchar(20), Owner_Lname varchar(30),
+Manager_Emp_ID int,
+Primary key(Winery_ID),
+Foreign key(Manager_Emp_ID) references EMPLOYEE(Emp_ID)
+);
+
+Create table EMPLOYEE
+(
+Emp_ID int not null,
+Fname varchar(20), Lname varchar(30),
+Super_Emp_ID int,
+Winery_ID int not null
+Primary key(Emp_ID),
+Foreign key(Winery_ID) references WINERY(Winery_ID),
+Foreign key(Super_Emp_ID) references EMPLOYEE(Emp_ID)
+);
+
+Create table Wine_Cellar
+(
+
+)
