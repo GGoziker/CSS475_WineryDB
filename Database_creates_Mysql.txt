@@ -30,7 +30,7 @@ Primary key(Emp_ID)
 
 Create table WINE_CELLAR
 (
-Cellar_ID int not null.
+Cellar_ID int not null,
 Name varchar(20),
 Winery_ID int,
 Primary key(Cellar_ID)
