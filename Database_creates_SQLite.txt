@@ -5,7 +5,7 @@
 --Drop table WINE_TYPE;
 --Drop table WINE_BOTTLE;
 --Drop table CUSTOMER;
---Drop table ORDER;
+--Drop table ORDERS;
 --Drop table ORDER_CONTENTS;
 --Drop table VENUE;
 --Drop table RENTAL;
@@ -83,7 +83,7 @@ Fname varchar(20), Lname varchar(20),
 Primary key(Customer_ID)
 );
 
-Create table ORDER
+Create table ORDERS
 (
 Order_ID int not null,
 Date date not null,
@@ -101,7 +101,7 @@ Wine_Bottle_ID int not null,
 Order_ID int not null,
 Primary key(Order_Contents_ID),
 Foreign key(Wine_Bottle_ID) references WINE_BOTTLE(Wine_Bottle_ID),
-Foreign key(Order_ID) references ORDER(Order_ID)
+Foreign key(Order_ID) references ORDERS(Order_ID)
 );
 
 Create table VENUE
