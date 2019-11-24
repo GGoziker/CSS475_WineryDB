@@ -13,7 +13,7 @@ Create table EMPLOYEE
 Emp_ID int not null,
 Fname varchar(20), Lname varchar(30),
 Super_Emp_ID int,
-Winery_ID int not null
+Winery_ID int,
 Primary key(Emp_ID),
 Foreign key(Winery_ID) references WINERY(Winery_ID),
 Foreign key(Super_Emp_ID) references EMPLOYEE(Emp_ID)
@@ -23,7 +23,7 @@ Create table WINE_CELLAR
 (
 Cellar_ID int not null.
 Name varchar(20),
-Winery_ID int not null,
+Winery_ID int,
 Primary key(Cellar_ID),
 Foreign key(Winery_ID) references WINERY(Winery_ID)
 );
@@ -33,7 +33,7 @@ Create table STOCK_INVENTORY
 Stock_inventory_id int not null,
 Date date,
 Num_bottles int,
-Emp_ID int,
+Emp_ID int not null,
 Cellar_ID int not null,
 Primary key(Stock_inventory_id),
 Foreign key(Emp_ID) references EMPLOYEE(Emp_ID)
