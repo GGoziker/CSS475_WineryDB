@@ -1,4 +1,4 @@
-Emp_ID,first_name,last_name,Super_Emp_ID,Winery_ID
+Emp_ID,Fname,Lname,Super_Emp_ID,Winery_ID
 695051156,Jose,Halls,,1
 809465589,Nat,Drever,695051156,1
 704316284,Geri,Morot,695051156,1
