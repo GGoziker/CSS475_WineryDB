@@ -1,0 +1,261 @@
+1, Riesling, Rose, Production
+2, Riesling, Rose, Distribution
+3, Riesling, Rose, Retail
+4, Riesling, White, Production
+5, Riesling, White, Distribution
+6, Riesling, White, Retail
+7, Riesling, Red, Production
+8, Riesling, Red, Distribution
+9, Riesling, Red, Retail
+10, Chardonnay, Rose, Production
+11, Chardonnay, Rose, Distribution
+12, Chardonnay, Rose, Retail
+13, Chardonnay, White, Production
+14, Chardonnay, White, Distribution
+15, Chardonnay, White, Retail
+16, Chardonnay, Red, Production
+17, Chardonnay, Red, Distribution
+18, Chardonnay, Red, Retail
+19, Sauvignon Blanc, Rose, Production
+20, Sauvignon Blanc, Rose, Distribution
+21, Sauvignon Blanc, Rose, Retail
+22, Sauvignon Blanc, White, Production
+23, Sauvignon Blanc, White, Distribution
+24, Sauvignon Blanc, White, Retail
+25, Sauvignon Blanc, Red, Production
+26, Sauvignon Blanc, Red, Distribution
+27, Sauvignon Blanc, Red, Retail
+28, Gewurztraminer, Rose, Production
+29, Gewurztraminer, Rose, Distribution
+30, Gewurztraminer, Rose, Retail
+31, Gewurztraminer, White, Production
+32, Gewurztraminer, White, Distribution
+33, Gewurztraminer, White, Retail
+34, Gewurztraminer, Red, Production
+35, Gewurztraminer, Red, Distribution
+36, Gewurztraminer, Red, Retail
+37, Semillon, Rose, Production
+38, Semillon, Rose, Distribution
+39, Semillon, Rose, Retail
+40, Semillon, White, Production
+41, Semillon, White, Distribution
+42, Semillon, White, Retail
+43, Semillon, Red, Production
+44, Semillon, Red, Distribution
+45, Semillon, Red, Retail
+46, Pinot Gris, Rose, Production
+47, Pinot Gris, Rose, Distribution
+48, Pinot Gris, Rose, Retail
+49, Pinot Gris, White, Production
+50, Pinot Gris, White, Distribution
+51, Pinot Gris, White, Retail
+52, Pinot Gris, Red, Production
+53, Pinot Gris, Red, Distribution
+54, Pinot Gris, Red, Retail
+55, Viognier, Rose, Production
+56, Viognier, Rose, Distribution
+57, Viognier, Rose, Retail
+58, Viognier, White, Production
+59, Viognier, White, Distribution
+60, Viognier, White, Retail
+61, Viognier, Red, Production
+62, Viognier, Red, Distribution
+63, Viognier, Red, Retail
+64, Chenin Blanc, Rose, Production
+65, Chenin Blanc, Rose, Distribution
+66, Chenin Blanc, Rose, Retail
+67, Chenin Blanc, White, Production
+68, Chenin Blanc, White, Distribution
+69, Chenin Blanc, White, Retail
+70, Chenin Blanc, Red, Production
+71, Chenin Blanc, Red, Distribution
+72, Chenin Blanc, Red, Retail
+73, Muller-Thurgau, Rose, Production
+74, Muller-Thurgau, Rose, Distribution
+75, Muller-Thurgau, Rose, Retail
+76, Muller-Thurgau, White, Production
+77, Muller-Thurgau, White, Distribution
+78, Muller-Thurgau, White, Retail
+79, Muller-Thurgau, Red, Production
+80, Muller-Thurgau, Red, Distribution
+81, Muller-Thurgau, Red, Retail
+82, Madeleine Angevine, Rose, Production
+83, Madeleine Angevine, Rose, Distribution
+84, Madeleine Angevine, Rose, Retail
+85, Madeleine Angevine, White, Production
+86, Madeleine Angevine, White, Distribution
+87, Madeleine Angevine, White, Retail
+88, Madeleine Angevine, Red, Production
+89, Madeleine Angevine, Red, Distribution
+90, Madeleine Angevine, Red, Retail
+91, Siegerrebe, Rose, Production
+92, Siegerrebe, Rose, Distribution
+93, Siegerrebe, Rose, Retail
+94, Siegerrebe, White, Production
+95, Siegerrebe, White, Distribution
+96, Siegerrebe, White, Retail
+97, Siegerrebe, Red, Production
+98, Siegerrebe, Red, Distribution
+99, Siegerrebe, Red, Retail
+100, Muscat Ottonel, Rose, Production
+101, Muscat Ottonel, Rose, Distribution
+102, Muscat Ottonel, Rose, Retail
+103, Muscat Ottonel, White, Production
+104, Muscat Ottonel, White, Distribution
+105, Muscat Ottonel, White, Retail
+106, Muscat Ottonel, Red, Production
+107, Muscat Ottonel, Red, Distribution
+108, Muscat Ottonel, Red, Retail
+109, Orange Muscat, Rose, Production
+110, Orange Muscat, Rose, Distribution
+111, Orange Muscat, Rose, Retail
+112, Orange Muscat, White, Production
+113, Orange Muscat, White, Distribution
+114, Orange Muscat, White, Retail
+115, Orange Muscat, Red, Production
+116, Orange Muscat, Red, Distribution
+117, Orange Muscat, Red, Retail
+118, Aligote, Rose, Production
+119, Aligote, Rose, Distribution
+120, Aligote, Rose, Retail
+121, Aligote, White, Production
+122, Aligote, White, Distribution
+123, Aligote, White, Retail
+124, Aligote, Red, Production
+125, Aligote, Red, Distribution
+126, Aligote, Red, Retail
+127, Cabernet Sauvignon, Rose, Production
+128, Cabernet Sauvignon, Rose, Distribution
+129, Cabernet Sauvignon, Rose, Retail
+130, Cabernet Sauvignon, White, Production
+131, Cabernet Sauvignon, White, Distribution
+132, Cabernet Sauvignon, White, Retail
+133, Cabernet Sauvignon, Red, Production
+134, Cabernet Sauvignon, Red, Distribution
+135, Cabernet Sauvignon, Red, Retail
+136, Merlot, Rose, Production
+137, Merlot, Rose, Distribution
+138, Merlot, Rose, Retail
+139, Merlot, White, Production
+140, Merlot, White, Distribution
+141, Merlot, White, Retail
+142, Merlot, Red, Production
+143, Merlot, Red, Distribution
+144, Merlot, Red, Retail
+145, Syrah, Rose, Production
+146, Syrah, Rose, Distribution
+147, Syrah, Rose, Retail
+148, Syrah, White, Production
+149, Syrah, White, Distribution
+150, Syrah, White, Retail
+151, Syrah, Red, Production
+152, Syrah, Red, Distribution
+153, Syrah, Red, Retail
+154, Cabernet Franc, Rose, Production
+155, Cabernet Franc, Rose, Distribution
+156, Cabernet Franc, Rose, Retail
+157, Cabernet Franc, White, Production
+158, Cabernet Franc, White, Distribution
+159, Cabernet Franc, White, Retail
+160, Cabernet Franc, Red, Production
+161, Cabernet Franc, Red, Distribution
+162, Cabernet Franc, Red, Retail
+163, Malbec, Rose, Production
+164, Malbec, Rose, Distribution
+165, Malbec, Rose, Retail
+166, Malbec, White, Production
+167, Malbec, White, Distribution
+168, Malbec, White, Retail
+169, Malbec, Red, Production
+170, Malbec, Red, Distribution
+171, Malbec, Red, Retail
+172, Pinot Noir, Rose, Production
+173, Pinot Noir, Rose, Distribution
+174, Pinot Noir, Rose, Retail
+175, Pinot Noir, White, Production
+176, Pinot Noir, White, Distribution
+177, Pinot Noir, White, Retail
+178, Pinot Noir, Red, Production
+179, Pinot Noir, Red, Distribution
+180, Pinot Noir, Red, Retail
+181, Sangiovese, Rose, Production
+182, Sangiovese, Rose, Distribution
+183, Sangiovese, Rose, Retail
+184, Sangiovese, White, Production
+185, Sangiovese, White, Distribution
+186, Sangiovese, White, Retail
+187, Sangiovese, Red, Production
+188, Sangiovese, Red, Distribution
+189, Sangiovese, Red, Retail
+190, Lemberger, Rose, Production
+191, Lemberger, Rose, Distribution
+192, Lemberger, Rose, Retail
+193, Lemberger, White, Production
+194, Lemberger, White, Distribution
+195, Lemberger, White, Retail
+196, Lemberger, Red, Production
+197, Lemberger, Red, Distribution
+198, Lemberger, Red, Retail
+199, Grenache, Rose, Production
+200, Grenache, Rose, Distribution
+201, Grenache, Rose, Retail
+202, Grenache, White, Production
+203, Grenache, White, Distribution
+204, Grenache, White, Retail
+205, Grenache, Red, Production
+206, Grenache, Red, Distribution
+207, Grenache, Red, Retail
+208, Zinfandel, Rose, Production
+209, Zinfandel, Rose, Distribution
+210, Zinfandel, Rose, Retail
+211, Zinfandel, White, Production
+212, Zinfandel, White, Distribution
+213, Zinfandel, White, Retail
+214, Zinfandel, Red, Production
+215, Zinfandel, Red, Distribution
+216, Zinfandel, Red, Retail
+217, Barbera, Rose, Production
+218, Barbera, Rose, Distribution
+219, Barbera, Rose, Retail
+220, Barbera, White, Production
+221, Barbera, White, Distribution
+222, Barbera, White, Retail
+223, Barbera, Red, Production
+224, Barbera, Red, Distribution
+225, Barbera, Red, Retail
+226, Petit Verdot, Rose, Production
+227, Petit Verdot, Rose, Distribution
+228, Petit Verdot, Rose, Retail
+229, Petit Verdot, White, Production
+230, Petit Verdot, White, Distribution
+231, Petit Verdot, White, Retail
+232, Petit Verdot, Red, Production
+233, Petit Verdot, Red, Distribution
+234, Petit Verdot, Red, Retail
+235, Nebbiolo, Rose, Production
+236, Nebbiolo, Rose, Distribution
+237, Nebbiolo, Rose, Retail
+238, Nebbiolo, White, Production
+239, Nebbiolo, White, Distribution
+240, Nebbiolo, White, Retail
+241, Nebbiolo, Red, Production
+242, Nebbiolo, Red, Distribution
+243, Nebbiolo, Red, Retail
+244, Mourvdre, Rose, Production
+245, Mourvdre, Rose, Distribution
+246, Mourvdre, Rose, Retail
+247, Mourvdre, White, Production
+248, Mourvdre, White, Distribution
+249, Mourvdre, White, Retail
+250, Mourvdre, Red, Production
+251, Mourvdre, Red, Distribution
+252, Mourvdre, Red, Retail
+253, Petit Sirah, Rose, Production
+254, Petit Sirah, Rose, Distribution
+255, Petit Sirah, Rose, Retail
+256, Petit Sirah, White, Production
+257, Petit Sirah, White, Distribution
+258, Petit Sirah, White, Retail
+259, Petit Sirah, Red, Production
+260, Petit Sirah, Red, Distribution
+261, Petit Sirah, Red, Retail
