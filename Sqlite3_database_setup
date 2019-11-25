@@ -1,14 +1,16 @@
---Drop table WINERY;
---Drop table EMPLOYEE;
---Drop table WINE_CELLAR;
---Drop table STOCK_INVENTORY;
---Drop table WINE_TYPE;
---Drop table WINE_BOTTLE;
---Drop table CUSTOMER;
---Drop table ORDERS;
---Drop table ORDER_CONTENTS;
---Drop table VENUE;
---Drop table RENTAL;
+DROP TABLE IF EXISTS WINERY;
+DROP TABLE IF EXISTS EMPLOYEE;
+DROP TABLE IF EXISTS CUSTOMER;
+DROP TABLE IF EXISTS ORDERS;
+DROP TABLE IF EXISTS WINE_CELLAR;
+DROP TABLE IF EXISTS STOCK_INVENTORY;
+DROP TABLE IF EXISTS WINE_TYPE;
+DROP TABLE IF EXISTS WINE_BOTTLE;
+DROP TABLE IF EXISTS ORDER_CONTENTS;
+DROP TABLE IF EXISTS VENUE;
+DROP TABLE IF EXISTS RENTAL;
+
+
 
 Create table WINERY
 (
@@ -29,15 +31,6 @@ Winery_ID int,
 Primary key(Emp_ID),
 Foreign key(Winery_ID) references WINERY(Winery_ID),
 Foreign key(Super_Emp_ID) references EMPLOYEE(Emp_ID)
-);
-
-Create table WINE_CELLAR
-(
-Cellar_ID int not null,
-Name varchar(20),
-Winery_ID int,
-Primary key(Cellar_ID),
-Foreign key(Winery_ID) references WINERY(Winery_ID)
 );
 
 Create table STOCK_INVENTORY
@@ -126,3 +119,19 @@ Primary key(Rental_ID),
 Foreign key(Customer_ID) references CUSTOMER(Customer_ID),
 Foreign key(Venue_ID) references VENUE(Venue_ID)
 );
+
+Create table WINE_CELLAR
+(
+Cellar_ID int not null,
+Name varchar(20),
+Winery_ID int,
+Primary key(Cellar_ID),
+Foreign key(Winery_ID) references WINERY(Winery_ID)
+);
+
+
+.import EMPLOYEE_DATA.csv EMPLOYEE
+.import WINERY_DATA.csv WINERY
+.import CELLAR_DATA.csv WINE_CELLAR
+.import CUSTOMER_DATA.csv CUSTOMER
+.import ORDER_DATA.csv ORDERS
