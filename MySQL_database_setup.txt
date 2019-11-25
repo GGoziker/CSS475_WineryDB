@@ -5,7 +5,7 @@ Drop table STOCK_INVENTORY;
 Drop table WINE_TYPE;
 Drop table WINE_BOTTLE;
 Drop table CUSTOMER;
-Drop table CUSTOMER_ORDER;
+Drop table ORDERS;
 Drop table ORDER_CONTENTS;
 Drop table VENUE;
 Drop table RENTAL;
@@ -76,7 +76,7 @@ Fname varchar(20), Lname varchar(20),
 Primary key(Customer_ID)
 );
 
-Create table CUSTOMER_ORDER
+Create table ORDERS
 (
 Order_ID int not null,
 Order_Date date not null,
@@ -121,9 +121,9 @@ Alter table WINE_CELLAR add foreign key (Winery_ID) references WINERY(Winery_ID)
 Alter table STOCK_INVENTORY add foreign key (Emp_ID) references EMPLOYEE(Emp_ID);
 Alter table WINE_BOTTLE add foreign key (Wine_Type_ID) references WINE_TYPE(Wine_Type_ID);
 Alter table WINE_BOTTLE add foreign key (Cellar_ID) references WINE_CELLAR(Cellar_ID);
-Alter table CUSTOMER_ORDER add foreign key (Customer_ID) references CUSTOMER(Customer_ID);
+Alter table ORDERS add foreign key (Customer_ID) references CUSTOMER(Customer_ID);
 Alter table ORDER_CONTENTS add foreign key (Wine_Bottle_ID) references WINE_BOTTLE(Wine_Bottle_ID);
-Alter table ORDER_CONTENTS add foreign key (Order_ID) references CUSTOMER_ORDER(Order_ID);
+Alter table ORDER_CONTENTS add foreign key (Order_ID) references ORDERS(Order_ID);
 Alter table VENUE add foreign key (Winery_ID) references WINERY(Winery_ID);
 Alter table RENTAL add foreign key (Customer_ID) references CUSTOMER(Customer_ID);
 Alter table RENTAL add foreign key (Venue_ID) references VENUE(Venue_ID);
