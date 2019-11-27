@@ -130,8 +130,13 @@ Foreign key(Winery_ID) references WINERY(Winery_ID)
 );
 
 
+.mode csv EMPLOYEE
 .import EMPLOYEE_DATA.csv EMPLOYEE
+.mode csv WINERY
 .import WINERY_DATA.csv WINERY
+.mode csv WINE_CELLAR
 .import CELLAR_DATA.csv WINE_CELLAR
+.mode csv CUSTOMER
 .import CUSTOMER_DATA.csv CUSTOMER
+.mode csv ORDERS
 .import ORDER_DATA.csv ORDERS
