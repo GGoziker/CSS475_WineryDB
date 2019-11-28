@@ -64,7 +64,7 @@ Volume decimal(4, 2),
 Unit_Price decimal(3, 2),
 Cellar_ID int,
 Wine_Type_ID int,
-CHECK (Alcohol_Content BETWEEN 0.00 AND 30.00)
+CHECK (Alcohol_Content BETWEEN 0.00 AND 30.00),
 Primary key(Wine_Bottle_ID),
 Foreign key(Wine_Type_ID) references WINE_TYPE(Wine_Type_ID),
 Foreign key(Cellar_ID) references WINE_CELLAR(Cellar_ID)
