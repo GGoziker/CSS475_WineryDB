@@ -18,8 +18,7 @@ Winery_ID int not null,
 Name varchar(50),
 Owner_Fname varchar(20), Owner_Lname varchar(30),
 Manager_Emp_ID int,
-Primary key(Winery_ID),
-Foreign key(Manager_Emp_ID) references EMPLOYEE(Emp_ID)
+Primary key(Winery_ID)
 );
 
 Create table EMPLOYEE
