@@ -114,12 +114,18 @@ find_venue()
 {
 	while :
 	do
-		echo 'See only available venues? (Type '\''y/n''\'
+		echo 'See only available venues? (Type '\''y/n'\'')'
 		read -p '->' user_input
 		echo
 		case $user_input in
 			y)
-				# search only available venues
+				# Search only available venues
+				printf 'Winery: '
+				read winery
+				printf 'Date (format yyyy-mm-dd):'
+				read date
+				echo -e "\nSearching for venues at $winery available on $date"
+				find_venue_available
 				break
 				;;
 			n)
@@ -185,11 +191,31 @@ find_bottle_by_color()
 
 find_venue_all()
 {
-query="	Select	venue.name as Venue_Name,Venue_ID, Winery.name as Winery 
-	From	Venue, Winery 
-	Where	venue.winery_ID = winery.winery_ID 
-		AND winery.name = \"$winery\";"
+	query="	Select	venue.name as Venue_Name,Venue_ID, Winery.name as Winery 
+		From	Venue, Winery 
+		Where	venue.winery_ID = winery.winery_ID 
+			AND winery.name = \"$winery\";"
 	mysql -u "$USERNAME" -p"$PASSWORD" -D"$DBNAME" -e "$query"
+}
+
+
+
+find_venue_available()
+{
+	query="	Select	venue.name as Venue_Name, venue.Venue_ID, Winery.name as Winery 
+		From	Venue, Winery, Rental 
+		Where	venue.winery_ID = winery.winery_ID 
+			AND winery.name = \"$winery\" 
+  			And not exists ( 
+				Select * 
+            			From rental 
+            			Where	rental.venue_ID = venue.venue_ID 
+					AND rental.date = '$date' 
+        		) 
+		Group By venue.Venue_ID;"
+	echo "$query"
+	mysql -u "$USERNAME" -p"$PASSWORD" -D"$DBNAME" -e "$query"
+
 }
 
 
