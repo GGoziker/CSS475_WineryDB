@@ -114,26 +114,20 @@ find_venue()
 {
 	while :
 	do
-		echo 'Type '\''n'\'' to search by wine name, or '\''c'\'' to search by wine color:'
+		echo 'See only available venues? (Type '\''y/n''\'
 		read -p '->' user_input
 		echo
 		case $user_input in
-			n)
-				printf 'Wine Name: '
-				read wine_name
-				printf 'Winery: '
-				read winery
-				echo -e "\nSearching $winery for bottles of $wine_name"
-				find_bottle_by_name
+			y)
+				# search only available venues
 				break
 				;;
-			c)
-				printf 'Wine Color: '
-				read wine_color
+			n)
+				# Search all venues
 				printf 'Winery: '
 				read winery
-				echo -e "\nSearching $winery for bottles of $wine_name"
-				find_bottle_by_name
+				echo -e "\nSearching for venues at $winery"
+				find_venue_all
 				break
 				;;
 			*)
@@ -184,6 +178,17 @@ find_bottle_by_color()
 			AND wine_bottle.wine_type_id = wine_type.wine_type_id 
             		AND wine_type.color = \"$wine_color\" 
 			AND winery.name = \"$winery\";"
+	mysql -u "$USERNAME" -p"$PASSWORD" -D"$DBNAME" -e "$query"
+}
+
+
+
+find_venue_all()
+{
+query="	Select	venue.name as Venue_Name,Venue_ID, Winery.name as Winery 
+	From	Venue, Winery 
+	Where	venue.winery_ID = winery.winery_ID 
+		AND winery.name = \"$winery\";"
 	mysql -u "$USERNAME" -p"$PASSWORD" -D"$DBNAME" -e "$query"
 }
 
