@@ -1,4 +1,5 @@
 #!/bin/bash
+export PATH=$PATH:/usr/local/mysql/bin
 
 
 
@@ -26,10 +27,10 @@ connect_to_db()
 display_commands()
 {
 	echo
-	echo 'Enter one of the following commands:'
-	echo -e '\tFind_bottle (Search for where to buy a particular bottle)'
-	echo -e '\tFind_venue (Search for rentable venues by winery)'
-	echo -e '\tBuy_bottle'
+	echo 'Enter one of the following commands (case sensitive):'
+	echo -e '\tFind_bottle   (Search a particular winery for a particular bottle of wine)'
+	echo -e '\tFind_venue    (Search for rentable venues by winery)'
+	echo -e '\tBuy_bottle    (Purchase a bottle)'
 	echo -e '\tRent_venue'
 	echo -e '\tExit'
 	echo
@@ -58,7 +59,7 @@ process_command()
 			echo 'You chose to rent a venue'
 			rent_venue
 			;;
-		exit)
+		Exit)
 			echo 'Thanks for using our database!'
 			exit
 			;;
@@ -72,7 +73,7 @@ process_command()
 
 # -------------- Command Processing Functions -------------
 
-# Search database for a bottle
+# Search a winery for a bottle
 find_bottle()
 {
 	while :
@@ -82,15 +83,21 @@ find_bottle()
 		echo
 		case $user_input in
 			n)
-				read -p 'Wine name: ' wine_name
-				read -p 'Winery: ' winery
-				find_bottle_by_name wine_name winery
+				printf 'Wine Name: '
+				read wine_name
+				printf 'Winery: '
+				read winery
+				echo -e "\nSearching $winery for bottles of $wine_name"
+				find_bottle_by_name
 				break
 				;;
 			c)
-				read -p 'Wine color: ' wine_color
-				read -p 'Winery: ' winery
-				# TODO call SQL query
+				printf 'Wine Color: '
+				read wine_color
+				printf 'Winery: '
+				read winery
+				echo -e "\nSearching $winery for bottles of $wine_color"
+				find_bottle_by_color
 				break
 				;;
 			*)
@@ -105,7 +112,36 @@ find_bottle()
 
 find_venue()
 {
-	echo 'in find_venue'
+	while :
+	do
+		echo 'Type '\''n'\'' to search by wine name, or '\''c'\'' to search by wine color:'
+		read -p '->' user_input
+		echo
+		case $user_input in
+			n)
+				printf 'Wine Name: '
+				read wine_name
+				printf 'Winery: '
+				read winery
+				echo -e "\nSearching $winery for bottles of $wine_name"
+				find_bottle_by_name
+				break
+				;;
+			c)
+				printf 'Wine Color: '
+				read wine_color
+				printf 'Winery: '
+				read winery
+				echo -e "\nSearching $winery for bottles of $wine_name"
+				find_bottle_by_name
+				break
+				;;
+			*)
+				echo 'That'\''s not a valid option.'
+				;;
+		esac
+		echo
+	done
 }
 
 
@@ -128,20 +164,27 @@ rent_venue()
 
 find_bottle_by_name()
 {
-	query="	Select wine_bottle.wine_bottle_id, winery.name as winery, wine_bottle.volume, wine_bottle.unit_price as price 
+	query="	Select wine_bottle.name as Bottle, wine_bottle.wine_bottle_id as Bottle_ID, winery.name as Winery, wine_bottle.Volume, wine_bottle.unit_price as Price 
 		From wine_bottle, winery, wine_cellar 
 		Where	wine_bottle.cellar_ID = wine_cellar.cellar_ID 
 			AND wine_cellar.winery_id = winery.winery_id 
-			AND wine_bottle.name = \"eu\" 
-			AND winery.name = \"Columbia Winery\";"
-	run_query "$query"
+			AND wine_bottle.name = \"$wine_name\" 
+			AND winery.name = \"$winery\";"
+	mysql -u "$USERNAME" -p"$PASSWORD" -D"$DBNAME" -e "$query"
 }
 
 
 
-run_query()
+find_bottle_by_color()
 {
-	mysql -u "$USERNAME" -p"$PASSWORD" -D"$DBNAME" -e "$1"
+	query="	Select wine_type.Color, wine_bottle.name as Bottle, wine_bottle.wine_bottle_id as Bottle_ID, winery.name as Winery, wine_bottle.Volume, wine_bottle.unit_price as Price 
+		From wine_bottle, winery, wine_cellar, wine_type 
+		Where	wine_bottle.cellar_ID = wine_cellar.cellar_ID 
+			AND wine_cellar.winery_id = winery.winery_id 
+			AND wine_bottle.wine_type_id = wine_type.wine_type_id 
+            		AND wine_type.color = \"$wine_color\" 
+			AND winery.name = \"$winery\";"
+	mysql -u "$USERNAME" -p"$PASSWORD" -D"$DBNAME" -e "$query"
 }
 
 
