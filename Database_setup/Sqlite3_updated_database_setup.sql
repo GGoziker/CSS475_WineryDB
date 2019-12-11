@@ -10,8 +10,6 @@ DROP TABLE IF EXISTS WINE_CELLAR;
 DROP TABLE IF EXISTS EMPLOYEE;
 DROP TABLE IF EXISTS WINERY;
 
-
-
 Create table WINERY
 (
 Winery_ID int not null AUTO_INCREMENT, 
@@ -55,7 +53,7 @@ Foreign key(Cellar_ID) references WINE_CELLAR(Cellar_ID)
 Create table WINE_TYPE
 (
 Wine_Type_ID int not null AUTO_INCREMENT, 
-Grape_Variety varchar (20), 
+Grape_Variety varchar (30), 
 Color varchar(5) not null, 
 Tier varchar(20), 
 Primary key(Wine_Type_ID)
@@ -64,7 +62,7 @@ Primary key(Wine_Type_ID)
 Create table WINE_BOTTLE
 (
 Wine_Bottle_ID int not null AUTO_INCREMENT, 
-Name varchar(20) not null, 
+Name varchar(35) not null, 
 Year int, 
 Rating int, 
 Alcohol_Content decimal(4, 2), 
