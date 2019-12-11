@@ -30,7 +30,6 @@ display_commands()
 	echo 'Enter one of the following commands (case sensitive):'
 	echo -e '\tFind_bottle   (Search a particular winery for a particular bottle of wine)'
 	echo -e '\tFind_venue    (Search for rentable venues by winery)'
-	echo -e '\tBuy_bottle    (Purchase a bottle)'
 	echo -e '\tRent_venue'
 	echo -e '\tExit'
 	echo
@@ -50,10 +49,6 @@ process_command()
 		Find_venue)
 			echo 'You chose to find a venue'
 			find_venue
-			;;
-		Buy_bottle)
-			echo 'You chose to buy a bottle'
-			buy_bottle
 			;;
 		Rent_venue)
 			echo 'You chose to rent a venue'
@@ -83,21 +78,23 @@ find_bottle()
 		echo
 		case $user_input in
 			n)
+				# Search for wine by name
 				printf 'Wine Name: '
 				read wine_name
 				printf 'Winery: '
 				read winery
 				echo -e "\nSearching $winery for bottles of $wine_name"
-				find_bottle_by_name
+				find_bottle_by_name_sql
 				break
 				;;
 			c)
+				# Search for wine by color
 				printf 'Wine Color: '
 				read wine_color
 				printf 'Winery: '
 				read winery
 				echo -e "\nSearching $winery for bottles of $wine_color"
-				find_bottle_by_color
+				find_bottle_by_color_sql
 				break
 				;;
 			*)
@@ -125,7 +122,7 @@ find_venue()
 				printf 'Date (format yyyy-mm-dd):'
 				read date
 				echo -e "\nSearching for venues at $winery available on $date"
-				find_venue_available
+				find_venue_available_sql
 				break
 				;;
 			n)
@@ -133,7 +130,7 @@ find_venue()
 				printf 'Winery: '
 				read winery
 				echo -e "\nSearching for venues at $winery"
-				find_venue_all
+				find_venue_all_sql
 				break
 				;;
 			*)
@@ -142,13 +139,6 @@ find_venue()
 		esac
 		echo
 	done
-}
-
-
-
-buy_bottle()
-{
-	echo 'in buy_bottle'
 }
 
 
@@ -162,9 +152,9 @@ rent_venue()
 
 # ---------------------- SQL Queries ----------------------
 
-find_bottle_by_name()
+find_bottle_by_name_sql()
 {
-	query="	Select wine_bottle.name as Bottle, wine_bottle.wine_bottle_id as Bottle_ID, winery.name as Winery, wine_bottle.Volume, wine_bottle.unit_price as Price 
+	query="	Select wine_bottle.name as Bottle, wine_bottle.wine_bottle_id as Wine_ID, winery.name as Winery, wine_bottle.Volume, wine_bottle.unit_price as Price 
 		From wine_bottle, winery, wine_cellar 
 		Where	wine_bottle.cellar_ID = wine_cellar.cellar_ID 
 			AND wine_cellar.winery_id = winery.winery_id 
@@ -175,9 +165,9 @@ find_bottle_by_name()
 
 
 
-find_bottle_by_color()
+find_bottle_by_color_sql()
 {
-	query="	Select wine_type.Color, wine_bottle.name as Bottle, wine_bottle.wine_bottle_id as Bottle_ID, winery.name as Winery, wine_bottle.Volume, wine_bottle.unit_price as Price 
+	query="	Select wine_type.Color, wine_bottle.name as Bottle, wine_bottle.wine_bottle_id as Wine_ID, winery.name as Winery, wine_bottle.Volume, wine_bottle.unit_price as Price 
 		From wine_bottle, winery, wine_cellar, wine_type 
 		Where	wine_bottle.cellar_ID = wine_cellar.cellar_ID 
 			AND wine_cellar.winery_id = winery.winery_id 
@@ -189,7 +179,7 @@ find_bottle_by_color()
 
 
 
-find_venue_all()
+find_venue_all_sql()
 {
 	query="	Select	venue.name as Venue_Name,Venue_ID, Winery.name as Winery 
 		From	Venue, Winery 
@@ -200,7 +190,7 @@ find_venue_all()
 
 
 
-find_venue_available()
+find_venue_available_sql()
 {
 	query="	Select	venue.name as Venue_Name, venue.Venue_ID, Winery.name as Winery 
 		From	Venue, Winery, Rental 
