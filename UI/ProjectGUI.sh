@@ -3,7 +3,7 @@ export PATH=$PATH:/usr/local/mysql/bin
 
 
 
-# ------------------- Database Setup -------------------
+# ------------------------- Setup -------------------------
 
 connect_to_db()
 {
@@ -22,6 +22,12 @@ connect_to_db()
 	echo 'Connected to database!'
 }
 
+
+
+welcome_message()
+{
+echo -e "\n\n\t\t\tWelcome to the Wine-About-It winery management database!\n\n\t\t\tMade by Team Go for CSS475\n\n"
+}
 
 
 # ------------------- Manager Interface -------------------
@@ -43,7 +49,7 @@ display_commands_manager()
 	echo 'Enter one of the following commands (case sensitive):'
 	echo -e '\tEmployee_list    (View employees of a particular winery)'
 	echo -e '\tWinery_list      (View all wineries)'
-	echo -e '\tRentals          (View all rentals at a particular winery)'
+	echo -e '\tVenue_rentals    (View all currently rented venues at a particular winery)'
 	echo -e '\tView_sales       (View all sales at a particular winery)'
 	echo -e '\tExit'
 	echo
@@ -57,16 +63,16 @@ process_command_manager()
 	echo
 	case $user_input in
 		Employee_list)
-			echo 'You chose to find a bottle'
-			Employee_list
+			echo 'You chose to view employees of a particular winery'
+			employee_list
 			;;
 		Winery_list)
 			echo 'You chose to view all wineries'
-			winery_list_sql
+			winery_list
 			;;
-		Rentals)
-			echo 'You chose to find a venue'
-			Rentals_list
+		Venue_rentals)
+			echo 'You chose to find currently rented venues'
+			rentals_list
 			;;
 		View_sales)
 			echo 'You chose to rent a venue'
@@ -104,7 +110,6 @@ display_commands_customer()
 	echo -e '\tFind_bottle   (Search a particular winery for a particular bottle of wine)'
 	echo -e '\tVenue_list    (View rentable venues by winery)'
 	echo -e '\tWinery_list   (View all wineries)'
-	echo -e '\tRent_venue    (Make a booking of a certain venue)'
 	echo -e '\tExit'
 	echo
 }
@@ -126,11 +131,7 @@ process_command_customer()
 			;;
 		Winery_list)
 			echo 'You chose to view all wineries'
-			winery_list_sql
-			;;
-		Rent_venue)
-			echo 'You chose to rent a venue'
-			rent_venue
+			winery_list
 			;;
 		Exit)
 			echo 'Thanks for using our database!'
@@ -221,17 +222,42 @@ find_venue()
 }
 
 
-
-rent_venue()
+winery_list()
 {
-	echo 'in rent_venue'
+	query="Select Name as Winery From Winery;"
+	mysql -u "$USERNAME" -p"$PASSWORD" -D"$DBNAME" -e "$query"
+
+}
+
+
+
+# List all currently rented venues at the specified winery
+rentals_list()
+{
+	printf 'Winery: '
+	read winery
+	query="Select	venue.name as Venue_Name, venue.Venue_ID, Winery.name as Winery, rental.Date 
+		From	Venue, Winery, Rental 
+		Where	venue.winery_ID = winery.winery_ID 
+			AND winery.name = \"winery\" 
+  			And rental.venue_ID = venue.venue_ID 
+			AND rental.date = CURRENT_DATE 
+		Group By rental.rental_ID;"
+	mysql -u "$USERNAME" -p"$PASSWORD" -D"$DBNAME" -e "$query"
 }
 
 
 
 employee_list()
 {
-	echo 'in employee list'
+	printf 'Winery: '
+	read winery
+	echo -e "\nSearching for all employees of $winery"
+	query="	Select Emp_ID as Employee_ID, employee.fname as First_Name, employee.lname as Last_Name, employee.super_emp_id as Supervisor_ID 
+			From Employee, Winery 
+			Where	employee.winery_ID = winery.winery_id 
+				AND winery.name = \"$winery\"; "
+	mysql -u "$USERNAME" -p"$PASSWORD" -D"$DBNAME" -e "$query"
 }
 
 
@@ -295,16 +321,9 @@ find_venue_available_sql()
 
 
 
-winery_list_sql()
-{
-	query="Select Name as Winery From Winery;"
-	mysql -u "$USERNAME" -p"$PASSWORD" -D"$DBNAME" -e "$query"
-
-}
-
-
 # ------------------------ Main Loop ----------------------
 
+welcome_message
 connect_to_db
 
 
@@ -317,6 +336,7 @@ do
 	case $user_input in
 		m)
 			read -sp 'Enter manager password: ' user_input
+			echo
 			if [ "$user_input" == "password" ]
 			then
 				echo 'Access granted. Entering manager mode'
