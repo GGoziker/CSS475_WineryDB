@@ -14,7 +14,7 @@ DROP TABLE IF EXISTS WINERY;
 
 Create table WINERY
 (
-Winery_ID int not null, 
+Winery_ID int not null AUTO_INCREMENT, 
 Name varchar(50), 
 Owner_Fname varchar(20), Owner_Lname varchar(30), 
 Primary key(Winery_ID)
@@ -22,7 +22,7 @@ Primary key(Winery_ID)
 
 Create table EMPLOYEE
 (
-Emp_ID int not null, 
+Emp_ID int not null AUTO_INCREMENT, 
 Fname varchar(20), Lname varchar(30), 
 Super_Emp_ID int, 
 Winery_ID int, 
@@ -33,7 +33,7 @@ Foreign key(Super_Emp_ID) references EMPLOYEE(Emp_ID)
 
 Create table WINE_CELLAR
 (
-Cellar_ID int not null, 
+Cellar_ID int not null AUTO_INCREMENT, 
 Name varchar(20), 
 Winery_ID int, 
 Primary key(Cellar_ID), 
@@ -42,7 +42,7 @@ Foreign key(Winery_ID) references WINERY(Winery_ID)
 
 Create table STOCK_INVENTORY
 (
-Stock_inventory_id int not null, 
+Stock_inventory_id int not null AUTO_INCREMENT, 
 Date date, 
 Num_bottles int, 
 Emp_ID int not null, 
@@ -54,7 +54,7 @@ Foreign key(Cellar_ID) references WINE_CELLAR(Cellar_ID)
 
 Create table WINE_TYPE
 (
-Wine_Type_ID int not null, 
+Wine_Type_ID int not null AUTO_INCREMENT, 
 Grape_Variety varchar (20), 
 Color varchar(5) not null, 
 Tier varchar(20), 
@@ -63,7 +63,7 @@ Primary key(Wine_Type_ID)
 
 Create table WINE_BOTTLE
 (
-Wine_Bottle_ID int not null, 
+Wine_Bottle_ID int not null AUTO_INCREMENT, 
 Name varchar(20) not null, 
 Year int, 
 Rating int, 
@@ -82,14 +82,14 @@ Foreign key(Cellar_ID) references WINE_CELLAR(Cellar_ID)
 
 Create table CUSTOMER
 (
-Customer_ID int not null, 
+Customer_ID int not null AUTO_INCREMENT, 
 Fname varchar(20), Lname varchar(20), 
 Primary key(Customer_ID)
 );
 
 Create table ORDERS
 (
-Order_ID int not null, 
+Order_ID int not null AUTO_INCREMENT, 
 Date date not null, 
 Discount decimal(4, 2), 
 Customer_ID int not null, 
@@ -100,7 +100,7 @@ Foreign key(Customer_ID) references CUSTOMER(Customer_ID)
 
 Create table ORDER_CONTENTS
 (
-Order_Contents_ID int not null, 
+Order_Contents_ID int not null AUTO_INCREMENT, 
 Quantity int not null, 
 Wine_Bottle_ID int not null, 
 Order_ID int not null, 
@@ -111,7 +111,7 @@ Foreign key(Order_ID) references ORDERS(Order_ID)
 
 Create table VENUE
 (
-Venue_ID int not null, 
+Venue_ID int not null AUTO_INCREMENT, 
 Name varchar(20), 
 Seating_Cap int, 
 Dimensions decimal(7, 2), 
@@ -123,7 +123,7 @@ Foreign key(Winery_ID) references WINERY(Winery_ID)
 
 Create table RENTAL
 (
-Rental_ID int not null, 
+Rental_ID int not null AUTO_INCREMENT, 
 Price decimal(6, 2) not null, 
 Date date not null, 
 Customer_ID int not null, 
@@ -418,4 +418,5 @@ INSERT INTO RENTAL VALUES(8, 5800.52, STR_TO_DATE('11/15/2018', '%m/%d/%Y'), 426
 INSERT INTO RENTAL VALUES(23, 4705.19, STR_TO_DATE('1/19/2019', '%m/%d/%Y'), 2254822, 8);
 INSERT INTO RENTAL VALUES(24, 3209.88, STR_TO_DATE('4/28/2017', '%m/%d/%Y'), 7899601, 5);
 INSERT INTO RENTAL VALUES(25, 2379.98, STR_TO_DATE('10/3/2017', '%m/%d/%Y'), 4278459, 14);
-INSERT INTO RENTAL VALUES(26, 9176.03, STR_TO_DATE('4/5/2018', '%m/%d/%Y'), 2254822, 7);
+-- Test inserting with auto-generated row ID
+INSERT INTO RENTAL (Price, Date, Customer_ID, Venue_ID) VALUES(9176.03, STR_TO_DATE('4/5/2018', '%m/%d/%Y'), 2254822, 7);
