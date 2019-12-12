@@ -24,18 +24,21 @@ connect_to_db()
 
 
 
-# ------------------- Manager Interface -------------------
+# ------------------- Employee Interface -------------------
 manager_mode()
 {
 	while :
 	do
 		echo -e '\nEnter one of the following commands (case sensitive):'
 		echo -e '\tCommand\t\t\tAction'
+		echo -e '\t-------\t\t\t------'
 		echo -e '\t0\t\t\tClose the program '
 		echo -e '\t1\t\t\tView employees of a particular winery'
 		echo -e '\t2\t\t\tView all wineries'
 		echo -e '\t3\t\t\tSee what kind of event spaces a winery has'
-		echo -e '\t4\t\t\tView all currently rented venues at a particular winery\n'
+		echo -e '\t4\t\t\tView all currently rented venues at a particular winery'
+		echo -e '\t5\t\t\tSee best-selling wines at a particular winery'
+		echo -e '\t6\t\t\tSee in-stock wines at a particular winery'
 
 		read -p '->' user_input
 		echo
@@ -59,6 +62,14 @@ manager_mode()
 			4)
 				echo 'You chose to find currently rented venues'
 				rentals_list
+				;;
+			5)
+				echo 'You chose to see best-selling wines at a particular winery'
+				bestsellers
+				;;
+			6)
+				echo 'You chose to see the list of wines in stock at a particular winery'
+				get_stock
 				;;
 			*)
 				echo 'That'\''s not a valid command.'
@@ -174,7 +185,8 @@ find_venue()
 		case $user_input in
 			0)
 				# Search only available venues
-				printf 'Winery: '
+				winery_list
+				echo 'Enter the name of the winery you'\''d like to see event spaces for: '
 				read winery
 				printf 'Date (format yyyy-mm-dd):'
 				read date
@@ -184,7 +196,8 @@ find_venue()
 				;;
 			1)
 				# Search all venues
-				printf 'Winery: '
+				winery_list
+				echo 'Enter the name of the winery you'\''d like to see event spaces for: '
 				read winery
 				echo -e "\nSearching for event spaces at $winery"
 				find_venue_all_sql
@@ -199,6 +212,8 @@ find_venue()
 }
 
 
+
+# Print names of all wineries in DB
 winery_list()
 {
 	query="Select Name as Winery From Winery;"
@@ -211,7 +226,8 @@ winery_list()
 # List all currently rented venues at the specified winery
 rentals_list()
 {
-	printf 'Winery: '
+	winery_list
+	echo 'Enter the name of the winery for which you'\''d like to view currently rented venues: '
 	read winery
 	query="Select	venue.name as Venue_Name, venue.Venue_ID, Winery.name as Winery, rental.Date 
 		From	Venue, Winery, Rental 
@@ -225,9 +241,49 @@ rentals_list()
 
 
 
+bestsellers()
+{
+	winery_list
+	echo 'Enter the name of the winery for which you'\''d like to view best-selling wines: '
+	read -p '->' winery
+	echo 'How many results would you like to limit to?'
+	read -p '->' num_results
+	query="	Select wine_bottle.name as Wine_Name, sum(order_contents.Quantity) as Quantity 
+		From wine_bottle, order_contents, wine_cellar, winery 
+		Where    order_contents.wine_bottle_id = wine_bottle.wine_bottle_id 
+			AND wine_bottle.cellar_id = wine_cellar.cellar_id 
+			AND wine_cellar.winery_id = winery.winery_id 
+			AND winery.name = \"$winery\" 
+		Group by wine_bottle.name 
+		Order by sum(order_contents.Quantity) desc 
+		Limit $num_results; "
+	mysql -u "$USERNAME" -p"$PASSWORD" -D"$DBNAME" -e "$query"
+}
+
+
+
+# Get list of wines stocked at a winery
+get_stock()
+{
+	winery_list
+	echo 'Enter the name of the winery for which you'\''d like to view in-stock wines: '
+	read -p '->' winery
+	query="	SELECT Wine_Bottle.name, Winery.name as Winery_Name, count(*) as Quantity 
+		FROM Winery, Wine_Cellar, Wine_Bottle  
+		WHERE Winery.Winery_ID =  Wine_Cellar.Winery_ID 
+			AND Wine_Cellar.Cellar_ID = Wine_Bottle.Cellar_ID 
+			AND Winery.name = \"$winery\" 
+		GROUP BY Wine_Bottle.name 
+		Order by Quantity desc;"
+	mysql -u "$USERNAME" -p"$PASSWORD" -D"$DBNAME" -e "$query"
+}
+
+
+
 employee_list()
 {
-	printf 'Winery: '
+	winery_list
+	echo 'Enter the name of the winery you'\''d like to see employees for: '
 	read winery
 	echo -e "\nSearching for all employees of $winery"
 	query="	Select Emp_ID as Employee_ID, employee.fname as First_Name, employee.lname as Last_Name, employee.super_emp_id as Supervisor_ID 
