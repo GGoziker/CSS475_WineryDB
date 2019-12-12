@@ -3,13 +3,13 @@ export PATH=$PATH:/usr/local/mysql/bin
 
 
 
-# ------------------------- Setup -------------------------
+# ----------------------- Setup DB -----------------------
 
 connect_to_db()
 {
 	DBNAME='Winery_DB'
 	USERNAME='root'
-	read -sp 'MySQL Password: ' PASSWORD
+	read -sp 'Enter password for local MySQL server: ' PASSWORD
 
 	echo
 
@@ -19,128 +19,94 @@ connect_to_db()
 		read -sp 'MySQL Password: ' PASSWORD
 	done
 	echo
-	echo 'Connected to database!'
+	echo -e 'Connected to database!\n~~~~~~~~~~~~~~~~~~~~~\n'
 }
 
-
-
-welcome_message()
-{
-echo -e "\n\n\t\t\tWelcome to the Wine-About-It winery management database!\n\n\t\t\tMade by Team Go for CSS475\n\n"
-}
 
 
 # ------------------- Manager Interface -------------------
-
 manager_mode()
 {
 	while :
 	do
-		display_commands_manager
-		process_command_manager
+		echo -e '\nEnter one of the following commands (case sensitive):'
+		echo -e '\tCommand\t\t\tAction'
+		echo -e '\t0\t\t\tClose the program '
+		echo -e '\t1\t\t\tView employees of a particular winery'
+		echo -e '\t2\t\t\tView all wineries'
+		echo -e '\t3\t\t\tSee what kind of event spaces a winery has'
+		echo -e '\t4\t\t\tView all currently rented venues at a particular winery\n'
+
+		read -p '->' user_input
+		echo
+		case $user_input in
+			0)
+				echo 'Thanks for using our database!'
+				exit
+				;;
+			1)
+				echo 'You chose to view employees of a particular winery'
+				employee_list
+				;;
+			2)
+				echo 'You chose to view all wineries'
+				winery_list
+				;;
+			3)
+				echo 'You chose to look at event spaces'
+				find_venue
+				;;
+			4)
+				echo 'You chose to find currently rented venues'
+				rentals_list
+				;;
+			*)
+				echo 'That'\''s not a valid command.'
+				;;
+		esac
 	done
-}
-
-
-
-display_commands_manager()
-{
-	echo
-	echo 'Enter one of the following commands (case sensitive):'
-	echo -e '\tEmployee_list    (View employees of a particular winery)'
-	echo -e '\tWinery_list      (View all wineries)'
-	echo -e '\tVenue_rentals    (View all currently rented venues at a particular winery)'
-	echo -e '\tView_sales       (View all sales at a particular winery)'
-	echo -e '\tExit'
-	echo
-}
-
-
-
-process_command_manager()
-{
-	read -p '->' user_input
-	echo
-	case $user_input in
-		Employee_list)
-			echo 'You chose to view employees of a particular winery'
-			employee_list
-			;;
-		Winery_list)
-			echo 'You chose to view all wineries'
-			winery_list
-			;;
-		Venue_rentals)
-			echo 'You chose to find currently rented venues'
-			rentals_list
-			;;
-		View_sales)
-			echo 'You chose to rent a venue'
-			Sales_list
-			;;
-		Exit)
-			echo 'Thanks for using our database!'
-			exit
-			;;
-		*)
-			echo 'That'\''s not a valid command.'
-			;;
-	esac
 }
 
 
 
 # ------------------- Customer Interface -------------------
-
 customer_mode()
 {
 	while :
 	do
-		display_commands_customer
-		process_command_customer
+		echo -e '\n\t\tCustomer mode'
+		echo 'Enter one of the following commands (case sensitive):'
+		echo -e '\tCommand\t\t\tAction'
+		echo -e '\t-------\t\t\t------'
+		echo -e '\t0\t\t\tClose the program '
+		echo -e '\t1\t\t\tCheck a winery'\''s stock for a particular bottle'
+		echo -e '\t2\t\t\tSee what kind of event spaces a winery has'
+		echo -e '\t3\t\t\tView all wineries\n'
+
+		read -p '->' user_input
+		echo
+		case $user_input in
+			0)
+				echo 'Thanks for using our database!'
+				exit
+				;;
+			1)
+				echo 'You chose to find a bottle'
+				find_bottle
+				;;
+			2)
+				echo 'You chose to look at event spaces'
+				find_venue
+				;;
+			3)
+				echo 'You chose to view all wineries'
+				winery_list
+				;;
+			*)
+				echo 'That'\''s not a valid command.'
+				;;
+		esac
 	done
-}
-
-
-
-display_commands_customer()
-{
-	echo
-	echo 'Enter one of the following commands (case sensitive):'
-	echo -e '\tFind_bottle   (Search a particular winery for a particular bottle of wine)'
-	echo -e '\tVenue_list    (View rentable venues by winery)'
-	echo -e '\tWinery_list   (View all wineries)'
-	echo -e '\tExit'
-	echo
-}
-
-
-
-process_command_customer()
-{
-	read -p '->' user_input
-	echo
-	case $user_input in
-		Find_bottle)
-			echo 'You chose to find a bottle'
-			find_bottle
-			;;
-		Venue_list)
-			echo 'You chose to view rentable venues'
-			find_venue
-			;;
-		Winery_list)
-			echo 'You chose to view all wineries'
-			winery_list
-			;;
-		Exit)
-			echo 'Thanks for using our database!'
-			exit
-			;;
-		*)
-			echo 'That'\''s not a valid command.'
-			;;
-	esac
 }
 
 
@@ -152,25 +118,33 @@ find_bottle()
 {
 	while :
 	do
-		echo 'Type '\''n'\'' to search by wine name, or '\''c'\'' to search by wine color:'
+		
+		echo 'Would you like to search by wine name, or by wine color?'
+		echo -e '\t0\t\tWine name'
+		echo -e '\t1\t\tWine color'
 		read -p '->' user_input
 		echo
+		
 		case $user_input in
-			n)
+			0)
 				# Search for wine by name
-				printf 'Wine Name: '
+				all_wines
+				printf 'Enter a wine name from the list: '
 				read wine_name
-				printf 'Winery: '
+				winery_list
+				echo 'Enter the name of the winery you'\''d like to search for this wine: '
 				read winery
 				echo -e "\nSearching $winery for bottles of $wine_name"
 				find_bottle_by_name_sql
 				break
 				;;
-			c)
+			1)
 				# Search for wine by color
-				printf 'Wine Color: '
+				all_wine_colors
+				printf 'Enter a wine color from the list: '
 				read wine_color
-				printf 'Winery: '
+				winery_list
+				printf 'Enter the name of the winery you'\''d like to search for this wine: '
 				read winery
 				echo -e "\nSearching $winery for bottles of $wine_color"
 				find_bottle_by_color_sql
@@ -191,25 +165,28 @@ find_venue()
 {
 	while :
 	do
-		echo 'Only see available venues? (Type '\''y/n'\'')'
+		echo 'Would you like to filter results for venues which are available on a certain day?'
+		echo -e '\t0\t\tYes, only show venues with availability'
+		echo -e '\t1\t\tNo, show all venues'
 		read -p '->' user_input
 		echo
+
 		case $user_input in
-			y)
+			0)
 				# Search only available venues
 				printf 'Winery: '
 				read winery
 				printf 'Date (format yyyy-mm-dd):'
 				read date
-				echo -e "\nSearching for venues at $winery available on $date"
+				echo -e "\nSearching for event spaces at $winery available on $date"
 				find_venue_available_sql
 				break
 				;;
-			n)
+			1)
 				# Search all venues
 				printf 'Winery: '
 				read winery
-				echo -e "\nSearching for venues at $winery"
+				echo -e "\nSearching for event spaces at $winery"
 				find_venue_all_sql
 				break
 				;;
@@ -263,6 +240,22 @@ employee_list()
 
 
 # ---------------------- SQL Queries ----------------------
+
+all_wines()
+{
+	query="select distinct wine_bottle.name as Wine_Name from wine_bottle;"
+	mysql -u "$USERNAME" -p"$PASSWORD" -D"$DBNAME" -e "$query"
+}
+
+
+
+all_wine_colors()
+{
+	query="select distinct wine_type.color from wine_type;"
+	mysql -u "$USERNAME" -p"$PASSWORD" -D"$DBNAME" -e "$query"
+}
+
+
 
 find_bottle_by_name_sql()
 {
@@ -323,31 +316,32 @@ find_venue_available_sql()
 
 # ------------------------ Main Loop ----------------------
 
-welcome_message
+echo -e "\n\n\tWelcome to the Wine-About-It winery management database!\n\n\tMade by Team Go - Grace, Camila, Andrei, and Gahl\n\n\tCourse: CSS475\n\n"
 connect_to_db
-
-
 while :
 do
-	echo 'Manager or customer mode? Type '\''m/c'\'
+	echo -e 'Would you like to sign in as an employee, or as a customer?'
+		echo -e '\t0\t\t\tEmployee'
+		echo -e '\t1\t\t\tCustomer'
+
 	echo
 	read -p '->' user_input
 	echo
 	case $user_input in
-		m)
-			read -sp 'Enter manager password: ' user_input
+		0)
+			read -sp 'Enter employee password: ' user_input
 			echo
 			if [ "$user_input" == "password" ]
 			then
-				echo 'Access granted. Entering manager mode'
+				echo -e 'Access granted. Signing in as an employee\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~'
 				manager_mode
 				break
 			else
 				echo "Incorrect password."
 			fi
 			;;
-		c)
-			echo 'Entering customer mode'
+		1)
+			echo -e 'Signing in as a customer\n~~~~~~~~~~~~~~~~~~~~~~~~'
 			customer_mode
 			break
 			;;
